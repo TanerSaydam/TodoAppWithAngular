@@ -1,0 +1,82 @@
+<div class="page home">
+  <div class="container">
+    <div class="row mt-2">
+      <div class="col-md-6">
+        <h2 class="page-tite">
+          <img class="svg" src="assets/svg/file.svg">
+          <span>Todo List App</span>
+        </h2>
+      </div>
+      <div class="col-md-6">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Yapılacak yeni madde ekle" #newTodo>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit" (click)="addTodo(newTodo)">Ekle</button>
+        </form>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <mat-card class="d-flex">
+          <div class="example-container">
+
+            <h2>Bekleyenler</h2>
+
+            <div
+              cdkDropList
+              #pendingsList="cdkDropList"
+              [cdkDropListData]="data.pendings"
+              [cdkDropListConnectedTo]="[progressList]"
+              class="example-list"
+              (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let item of data.pendings" cdkDrag>
+                <img src="assets/svg/clock.svg" class="svg">
+                {{item}}
+              </div>
+            </div>
+          </div>
+
+          <div class="example-container">
+            <h2>Yapım aşamasında olanlar</h2>
+
+            <div
+              cdkDropList
+              #progressList="cdkDropList"
+              [cdkDropListData]="data.inProgress"
+              [cdkDropListConnectedTo]="[pendingsList,doneList]"
+              class="example-list"
+              (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let item of data.inProgress" cdkDrag>
+                <img src="assets/svg/hourglass.svg" class="svg">
+                {{item}}
+              </div>
+            </div>
+          </div>
+          <div class="example-container">
+
+            <h2>Tamamlananlar</h2>
+
+            <div
+              cdkDropList
+              #doneList="cdkDropList"
+              [cdkDropListData]="data.done"
+              [cdkDropListConnectedTo]="[progressList]"
+              class="example-list"
+              (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let item of data.done" cdkDrag>
+                <img src="assets/svg/like.svg" class="svg">
+                {{item}}
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center mt-2">
+        <small>Copyright 2022 Todo List App</small>
+      </div>
+    </div>
+  </div>
+</div>
